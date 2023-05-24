@@ -37,6 +37,10 @@ async def on_command_error(ctx, error):
         command_str = "\n".join(command_list)
 
         await bot.send_info(ctx.channel.id, f"Available commands: \n{command_str}")
+
+    else:
+        print(f"Unhandled error: {error}")
+        await bot.send_error(ctx.channel.id, f"Unexpected error occurred: {error}")
     return
 
 

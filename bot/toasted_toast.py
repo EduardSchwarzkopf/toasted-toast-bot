@@ -70,7 +70,7 @@ class ToastedToast(commands.Bot):
         description: str,
         message: str,
         field_title: str,
-        color: Optional[Union[int, Colour]] = 0x00FF00,
+        color: Optional[Union[int, Colour]] = 0x84E1BC,
     ) -> None:
         channel = self.get_channel(channel_id)
         embedVar = Embed(title=title, description=description, color=color)
@@ -86,7 +86,7 @@ class ToastedToast(commands.Bot):
         field_title: str = "",
     ) -> None:
         await self.send_embed(
-            channel_id, title, description, message, field_title, color=0xFF0000
+            channel_id, title, description, message, field_title, color=0xF05252
         )
 
     async def send_warning(
@@ -98,7 +98,7 @@ class ToastedToast(commands.Bot):
         field_title: str = "",
     ) -> None:
         await self.send_embed(
-            channel_id, title, description, message, field_title, color=0xFFFF00
+            channel_id, title, description, message, field_title, color=0xFACA15
         )
 
     async def send_success(
@@ -110,7 +110,7 @@ class ToastedToast(commands.Bot):
         field_title: str = "",
     ) -> None:
         await self.send_embed(
-            channel_id, title, description, message, field_title, color=0x00FF00
+            channel_id, title, description, message, field_title, color=0x84E1BC
         )
 
     async def send_info(
@@ -122,7 +122,7 @@ class ToastedToast(commands.Bot):
         field_title: str = "",
     ) -> None:
         await self.send_embed(
-            channel_id, title, description, message, field_title, color=0x0000FF
+            channel_id, title, description, message, field_title, color=0xA4CAFE
         )
 
     async def log_message(

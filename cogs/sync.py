@@ -2,13 +2,13 @@ import discord
 from discord.ext import commands
 
 
-class cmd(commands.Cog):
+class Sync(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(
         name="load",
-        brief="Loads an extension",
+        brief="Loads an extension (Owner only)",
         description="Loads an extension. You must specify the extension to load. This command can only be run by the bot owner.",
     )
     @commands.is_owner()
@@ -23,7 +23,7 @@ class cmd(commands.Cog):
 
     @commands.command(
         name="reload",
-        brief="Reloads an extension",
+        brief="Reloads an extension (Owner only)",
         description="Reloads an extension. You must specify the extension to reload. This command can only be run by the bot owner.",
     )
     @commands.is_owner()
@@ -38,7 +38,7 @@ class cmd(commands.Cog):
 
     @commands.command(
         name="unload",
-        brief="Unloads an extension",
+        brief="Unloads an extension (Owner only)",
         description="Unloads an extension. You must specify the extension to unload. This command can only be run by the bot owner.",
     )
     @commands.is_owner()
@@ -51,7 +51,9 @@ class cmd(commands.Cog):
     ):
         await self.bot.manage_cog(ctx, extension, "unload")
 
-    @commands.command(name="sync", description="Owner only")
+    @commands.command(
+        name="sync", brief="sync command tree (Owner only)", description="Owner only"
+    )
     @commands.is_owner()
     async def sync(self, ctx: discord.Interaction):
         print("Command tree sync started")
@@ -62,4 +64,4 @@ class cmd(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(cmd(bot))
+    await bot.add_cog(Sync(bot))

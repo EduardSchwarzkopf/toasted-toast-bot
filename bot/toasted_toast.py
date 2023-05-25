@@ -1,16 +1,8 @@
 import os
-from enum import Enum
 from typing import Optional, Union
 
 from discord import Colour, Embed
 from discord.ext import commands
-
-
-class MessageType(Enum):
-    ERROR = "error"
-    WARNING = "warning"
-    SUCCESS = "success"
-    INFO = "info"
 
 
 class ToastedToast(commands.Bot):
@@ -136,17 +128,17 @@ class ToastedToast(commands.Bot):
     async def log_message(
         self,
         message: str,
-        message_type: MessageType = MessageType.INFO,
+        message_type: str,
         title: str = "",
         description: str = "",
         field_title: str = "",
     ) -> None:
         if self.log_channel_id is not None:
             colors = {
-                MessageType.ERROR: 0xFF0000,  # Red
-                MessageType.WARNING: 0xFFFF00,  # Yellow
-                MessageType.SUCCESS: 0x00FF00,  # Green
-                MessageType.INFO: 0x0000FF,  # Blue
+                "error": 0xF05252,  # Red
+                "warning": 0xFACA15,  # Yellow
+                "success": 0x84E1BC,  # Green
+                "info": 0xA4CAFE,  # Blue
             }
             await self.send_embed(
                 self.log_channel_id,

@@ -1,5 +1,6 @@
-from typing import Optional, Union
+import os
 from enum import Enum
+from typing import Optional, Union
 
 from discord import Colour, Embed
 from discord.ext import commands
@@ -16,6 +17,22 @@ class ToastedToast(commands.Bot):
     def __init__(self, command_prefix, intents, log_channel_id: Optional[int] = None):
         super().__init__(command_prefix, intents=intents)
         self.log_channel_id = log_channel_id
+
+    async def on_ready(self):
+        print(
+            "Logged in as {0.name} (id: {0.id}), in {1} servers!".format(
+                self.user, len(self.guilds)
+            )
+        )
+
+    async def setup_hook(self):
+        cogs_dir = os.path.join(os.path.dirname(__file__), "../cogs")
+
+        for filename in os.listdir(cogs_dir):
+            if filename.endswith(".py"):
+                await self.load_extension(f"cogs.{filename[:-3]}")
+
+        await self.tree.sync()
 
     async def manage_cog(self, ctx, extension: Optional[str], action: str):
         if not extension:

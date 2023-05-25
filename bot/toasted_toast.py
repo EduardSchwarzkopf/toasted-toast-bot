@@ -34,6 +34,21 @@ class ToastedToast(commands.Bot):
 
         await self.tree.sync()
 
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandNotFound):
+            await self.send_error(
+                ctx.channel.id, f"Command '{ctx.message.content}' not found."
+            )
+
+            command_list = [f"{command}" for command in self.commands]
+            command_str = "\n".join(command_list)
+
+            await self.send_info(ctx.channel.id, f"Available commands: \n{command_str}")
+        else:
+            print(f"Unhandled error: {error}")
+            await self.send_error(ctx.channel.id, error, "Unexpected error occurred")
+        return
+
     async def manage_cog(self, ctx, extension: Optional[str], action: str):
         if not extension:
             await self.send_error(

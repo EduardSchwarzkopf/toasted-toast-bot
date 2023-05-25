@@ -3,11 +3,14 @@ from typing import Optional, Union
 
 from discord import Colour, Embed
 from discord.ext import commands
+import aiohttp
 
 
 class ToastedToast(commands.Bot):
     def __init__(self, command_prefix, intents, log_channel_id: Optional[int] = None):
         super().__init__(command_prefix, intents=intents)
+        self.session = aiohttp.ClientSession()
+
         self.log_channel_id = log_channel_id
 
     async def on_ready(self):
@@ -16,6 +19,10 @@ class ToastedToast(commands.Bot):
                 self.user, len(self.guilds)
             )
         )
+
+    async def close(self):
+        await super().close()
+        await self.session.close()
 
     async def setup_hook(self):
         cogs_dir = os.path.join(os.path.dirname(__file__), "../cogs")
